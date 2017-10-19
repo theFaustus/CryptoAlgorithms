@@ -19,8 +19,8 @@ import javafx.util.Pair;
  */
 public class DesHelper {
 
-    public static List<String> applyRotationOnKey(String key) {
-        List<String> rotatedKeys = new ArrayList<>();
+    public static List<String> applyDivideAndLeftRotationOnKey(String key) {
+        List<String> result = new ArrayList<>();
         Pair<String, String> dividedKey = divide(key);
         for (int i = 0; i < ROTATIONS.length; ++i) {
             BitSet C = binStringToBitSet(dividedKey.getKey());
@@ -30,10 +30,10 @@ public class DesHelper {
             Pair<String, String> rotatedKeyParts = new Pair<>(bitSetToString(C, 28), bitSetToString(D, 28));
             String concatenatedKey = rotatedKeyParts.getKey() + rotatedKeyParts.getValue();
             String keyAfterPermutation = applyPermutation(concatenatedKey, PERMUTATION_CHOICE_2);
-            rotatedKeys.add(keyAfterPermutation);
+            result.add(keyAfterPermutation);
             dividedKey = divide(concatenatedKey);
         }
-        return rotatedKeys;
+        return result;
     }
 
     public static Pair<String, String> divide(String key) {
