@@ -9,6 +9,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
+import javafx.util.Pair;
 
 /**
  *
@@ -31,7 +32,7 @@ public class RsaAlgorithm {
     private int bitlength = 2048;
 
     private Random r;
-    
+
     private final BigInteger k = new BigInteger("2");
 
     public RsaAlgorithm() {
@@ -47,20 +48,43 @@ public class RsaAlgorithm {
             e.add(BigInteger.ONE);
         }
 
-        d = e.modInverse(phi);         
-        //d = (BigInteger.ONE.add(k.multiply(phi))).divide(e);
+        d = e.modInverse(phi);
+
+    }
+
+    public RsaAlgorithm(Pair<BigInteger, BigInteger> privateKey) {
+
+        n = privateKey.getValue();
+        d = privateKey.getKey();
 
     }
 
     public byte[] encrypt(byte[] message) {
-
         return (new BigInteger(message)).modPow(e, n).toByteArray();
-
     }
 
     public byte[] decrypt(byte[] message) {
-
         return (new BigInteger(message)).modPow(d, n).toByteArray();
+    }
 
+    public Pair<BigInteger, BigInteger> getPrivateKey() {
+        return new Pair<>(d, n);
+    }
+
+    public static String bytesToString(byte[] encrypted) {
+        String test = "";
+        for (byte b : encrypted) {
+            test += Byte.toString(b) + " ";
+        }
+        return test;
+    }
+
+    public static byte[] stringOfBytesToBytes(String stringOfBytes) {
+        String[] bytesString = stringOfBytes.split(" ");
+        byte[] bytes = new byte[bytesString.length];
+        for (int i = 0; i < bytes.length; ++i) {
+            bytes[i] = Byte.parseByte(bytesString[i]);
+        }
+        return bytes;
     }
 }

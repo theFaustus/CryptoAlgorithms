@@ -5,6 +5,7 @@
  */
 package com.isa.si.rsaalgorithm;
 
+import static com.isa.si.rsaalgorithm.RsaAlgorithm.bytesToString;
 import java.io.DataInputStream;
 import java.io.IOException;
 
@@ -13,12 +14,13 @@ import java.io.IOException;
  * @author Faust
  */
 public class RsaDemo {
+
     private static final String TO_ENCRYPT = "Hello, Georgia!";
 
     public static void main(String[] args) throws IOException {
 
         RsaAlgorithm rsa = new RsaAlgorithm();
-        
+
         System.out.println("Encrypting String: " + TO_ENCRYPT);
 
         System.out.println("String in Bytes: " + bytesToString(TO_ENCRYPT.getBytes()));
@@ -35,11 +37,4 @@ public class RsaDemo {
 
     }
 
-    private static String bytesToString(byte[] encrypted) {
-        String test = "";
-        for (byte b : encrypted) {
-            test += Byte.toString(b);
-        }
-        return test;
-    }
 }
